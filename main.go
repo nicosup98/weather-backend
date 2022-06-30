@@ -50,7 +50,7 @@ func main() {
 
 	})
 
-	server.Listen(":5000")
+	server.Listen(fmt.Sprintf(":%s", local_utils.GetEnviromentVars("PORT")))
 }
 
 func makeRequest(method string, url string) fasthttp.Response {
