@@ -5,21 +5,15 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"os"
 	"weater-app/api/model"
+	local_utils "weater-app/api/utils"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/joho/godotenv"
 	"github.com/valyala/fasthttp"
 )
 
 func main() {
 	server := fiber.New()
-	err := godotenv.Load(".env")
-
-	if err != nil {
-		log.Fatalf("some error ocurred parsing .env %s", err)
-	}
 
 	server.Get("current_weather/:city", func(c *fiber.Ctx) error {
 		params := model.WeatherRequest{
@@ -65,8 +59,8 @@ func makeRequest(method string, url string) fasthttp.Response {
 	defer fasthttp.ReleaseRequest(req)
 	req.SetRequestURI(url)
 	req.Header.SetMethod(method)
-	req.Header.Add("X-RapidAPI-Key", os.Getenv("RAPID_API_KEY"))
-	req.Header.Add("X-RapidAPI-Host", os.Getenv("RAPID_API_HOST"))
+	req.Header.Add("X-RapidAPI-Key", local_utils.GetEnviromentVars("RAPID_API_KEY"))
+	req.Header.Add("X-RapidAPI-Host", local_utils.GetEnviromentVars("RAPID_API_HOST"))
 
 	resp := fasthttp.AcquireResponse()
 
