@@ -39,10 +39,7 @@ func main() {
 		defer fasthttp.ReleaseResponse(&resp)
 
 		body := resp.Body()
-		// copy(body, resp.Body())
 		code := resp.StatusCode()
-
-		log.Println("body", string(body))
 
 		c.Response().SetStatusCode(code)
 
