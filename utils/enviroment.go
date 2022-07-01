@@ -8,7 +8,7 @@ import (
 )
 
 func GetEnviromentVars(key string) string {
-	_, isPresent := os.LookupEnv(key)
+	value, isPresent := os.LookupEnv(key)
 
 	if !isPresent {
 		err := godotenv.Load(".env")
@@ -16,6 +16,8 @@ func GetEnviromentVars(key string) string {
 		if err != nil {
 			log.Panicf("some error ocurred parsing .env %s", err)
 		}
+	} else {
+		return value
 	}
 
 	return os.Getenv(key)
