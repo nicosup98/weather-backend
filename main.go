@@ -35,7 +35,7 @@ func main() {
 	})
 
 	server.Get("autocomplete/:city", func(c *fiber.Ctx) error {
-		URL, err := local_utils.UrlParser("", c.Params("city"))
+		URL, err := local_utils.UrlParser("https://weatherapi-com.p.rapidapi.com/search.json", c.Params("city"))
 
 		if err != nil {
 			log.Panicln("an error ocurred parsing url: ", err)
