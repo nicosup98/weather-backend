@@ -42,7 +42,7 @@ func main() {
 		}
 
 		resp := local_utils.MakeRequest(http.MethodGet, URL)
-		fasthttp.ReleaseResponse(&resp)
+		defer fasthttp.ReleaseResponse(&resp)
 
 		body := resp.Body()
 		code := resp.StatusCode()
