@@ -55,7 +55,7 @@ func GetWeather(c *fiber.Ctx) error {
 		log.Panicln("an error ocurred getting store: ", err)
 	}
 
-	timeStr := time.Now().String()
+	timeUnix := time.Now().Unix()
 
 	historyData := map[string]interface{}{
 		"type": typeSearch,
@@ -68,7 +68,7 @@ func GetWeather(c *fiber.Ctx) error {
 		log.Panicln("an error ocurred parsing to json: ", err)
 	}
 
-	sess.Set(timeStr, string(historyDataRaw))
+	sess.Set(strconv.FormatInt(timeUnix, 10), string(historyDataRaw))
 
 	if err := sess.Save(); err != nil {
 		log.Panicln("an error ocurred saving the session: ", err)
