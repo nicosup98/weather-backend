@@ -57,7 +57,7 @@ func GetWeather(c *fiber.Ctx) error {
 
 	timeUnix := time.Now().Unix()
 
-	var bodyParsed interface{}
+	bodyParsed := map[string]interface{}{}
 
 	json.Unmarshal(body, bodyParsed)
 
