@@ -59,7 +59,11 @@ func GetWeather(c *fiber.Ctx) error {
 
 	var bodyParsed map[string]interface{}
 
-	json.Unmarshal(body, &bodyParsed)
+	err = json.Unmarshal(body, &bodyParsed)
+
+	if err != nil {
+		log.Panicln("an error ocurred unmarshall json: ", err)
+	}
 
 	log.Println("bodyParsed", bodyParsed)
 
@@ -68,19 +72,19 @@ func GetWeather(c *fiber.Ctx) error {
 		"data": bodyParsed,
 	}
 
-	historyDataRaw, err := json.Marshal(historyData)
+	// historyDataRaw, err := json.Marshal(historyData)
 
-	if err != nil {
-		log.Panicln("an error ocurred parsing to json: ", err)
-	}
+	// if err != nil {
+	// 	log.Panicln("an error ocurred parsing to json: ", err)
+	// }
 
-	sess.Set(strconv.FormatInt(timeUnix, 10), string(historyDataRaw))
+	sess.Set(strconv.FormatInt(timeUnix, 10), historyData)
 
 	if err := sess.Save(); err != nil {
 		log.Panicln("an error ocurred saving the session: ", err)
 	}
 
-	return c.JSON(string(body))
+	return c.JSON(bodyParsed)
 
 }
 
