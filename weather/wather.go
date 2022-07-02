@@ -14,10 +14,6 @@ import (
 	local_utils "weather-app/api/utils"
 )
 
-var (
-	store = redis_session.Store
-)
-
 func GetWeather(c *fiber.Ctx) error {
 	forecast := c.Query("daysForecast", "")
 	city := c.Params("city")
@@ -52,7 +48,7 @@ func GetWeather(c *fiber.Ctx) error {
 
 	c.Response().SetStatusCode(code)
 
-	sess, err := store.Get(c)
+	sess, err := redis_session.Store.Get(c)
 
 	if err != nil {
 		log.Panicln("an error ocurred getting store: ", err)
@@ -95,7 +91,7 @@ func GetAutocompletation(c *fiber.Ctx) error {
 func GetHistorial(c *fiber.Ctx) error {
 	lastSearchs := c.Query("lastestSearches", "3")
 
-	sess, err := store.Get(c)
+	sess, err := redis_session.Store.Get(c)
 
 	if err != nil {
 		log.Panicln("an error ocurred calling session store: ", err)
