@@ -61,6 +61,8 @@ func GetWeather(c *fiber.Ctx) error {
 
 	json.Unmarshal(body, bodyParsed)
 
+	log.Println("bodyParsed", bodyParsed)
+
 	historyData := map[string]interface{}{
 		"type": typeSearch,
 		"data": bodyParsed,
