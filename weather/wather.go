@@ -107,8 +107,15 @@ func GetHistorial(c *fiber.Ctx) error {
 	keys := sess.Keys()
 
 	sort.Slice(keys, func(i, j int) bool {
-		a, err := time.Parse("15:04:05", keys[i])
-		b, err := time.Parse("15:04:05", keys[j])
+		timestampStrA, err := strconv.Atoi(keys[i])
+		timestampStrB, err := strconv.Atoi(keys[j])
+
+		if err != nil {
+			log.Panicln("an error ocurred parsing unix timestamp: ", err)
+		}
+
+		a := time.UnixMilli(int64(timestampStrA))
+		b := time.UnixMilli(int64(timestampStrB))
 
 		if err != nil {
 			log.Panicln("an error ocurred parsing time: ", err)
