@@ -56,9 +56,9 @@ func GetWeather(c *fiber.Ctx) error {
 
 	timeStr := time.Now().String()
 
-	historyData := map[string]interface{}{
-		"type": typeSearch,
-		"data": body,
+	historyData := redisData{
+		TypeSearch: typeSearch,
+		Data:       body,
 	}
 
 	sess.Set(timeStr, historyData)
@@ -125,4 +125,9 @@ func GetHistorial(c *fiber.Ctx) error {
 
 	return c.JSON(results)
 
+}
+
+type redisData struct {
+	TypeSearch string
+	Data       interface{}
 }
