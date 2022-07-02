@@ -150,6 +150,6 @@ func GetHistorial(c *fiber.Ctx) error {
 	}
 	c.Response().SetStatusCode(200)
 
-	return c.JSON(map[string]interface{}{"data": results})
+	return c.JSON(results)
 
 }
