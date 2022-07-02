@@ -1,6 +1,7 @@
 package weather
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 	"sort"
@@ -56,12 +57,18 @@ func GetWeather(c *fiber.Ctx) error {
 
 	timeStr := time.Now().String()
 
-	historyData := redisData{
-		TypeSearch: typeSearch,
-		Data:       body,
+	historyData := map[string]interface{}{
+		"type": typeSearch,
+		"data": body,
 	}
 
-	sess.Set(timeStr, historyData)
+	historyDataRaw, err := json.Marshal(historyData)
+
+	if err != nil {
+		log.Panicln("an error ocurred parsing to json: ", err)
+	}
+
+	sess.Set(timeStr, string(historyDataRaw))
 
 	if err := sess.Save(); err != nil {
 		log.Panicln("an error ocurred saving the session: ", err)
@@ -125,9 +132,4 @@ func GetHistorial(c *fiber.Ctx) error {
 
 	return c.JSON(results)
 
-}
-
-type redisData struct {
-	TypeSearch string
-	Data       interface{}
 }
