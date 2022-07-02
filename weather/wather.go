@@ -44,7 +44,7 @@ func GetWeather(c *fiber.Ctx) error {
 	resp := local_utils.MakeRequest(http.MethodGet, stdUrl)
 	defer fasthttp.ReleaseResponse(&resp)
 
-	body := string(resp.Body())
+	body := resp.Body()
 	code := resp.StatusCode()
 
 	c.Response().SetStatusCode(code)
@@ -57,9 +57,13 @@ func GetWeather(c *fiber.Ctx) error {
 
 	timeUnix := time.Now().Unix()
 
+	var bodyParsed interface{}
+
+	json.Unmarshal(body, bodyParsed)
+
 	historyData := map[string]interface{}{
 		"type": typeSearch,
-		"data": body,
+		"data": bodyParsed,
 	}
 
 	historyDataRaw, err := json.Marshal(historyData)
@@ -74,7 +78,7 @@ func GetWeather(c *fiber.Ctx) error {
 		log.Panicln("an error ocurred saving the session: ", err)
 	}
 
-	return c.JSON(body)
+	return c.JSON(string(body))
 
 }
 
