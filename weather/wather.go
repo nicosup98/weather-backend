@@ -130,7 +130,14 @@ func GetHistorial(c *fiber.Ctx) error {
 		log.Panicln("an error ocurred parsing lastSearches: ", err)
 	}
 	results := []interface{}{}
-	for _, v := range keys[:lastSearchesN] {
+	var keysSliced []string
+
+	if len(keys) < lastSearchesN {
+		keysSliced = keys
+	} else {
+		keysSliced = keys[:lastSearchesN]
+	}
+	for _, v := range keysSliced {
 		r := sess.Get(v)
 
 		results = append(results, r)
