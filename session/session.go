@@ -1,6 +1,7 @@
 package sesssion
 
 import (
+	"encoding/gob"
 	local_utils "weather-app/api/utils"
 
 	"github.com/gofiber/fiber/v2/middleware/session"
@@ -19,5 +20,5 @@ func New() {
 	Store = session.New(session.Config{
 		Storage: storage,
 	})
-
+	gob.Register(map[string]interface{}{})
 }
