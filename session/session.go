@@ -21,4 +21,5 @@ func New() {
 		Storage: storage,
 	})
 	gob.Register(map[string]interface{}{})
+	gob.Register([]interface{}{})
 }
