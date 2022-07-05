@@ -48,6 +48,7 @@ func GetWeather(c *fiber.Ctx) error {
 	code := resp.StatusCode()
 
 	c.Response().SetStatusCode(code)
+	c.Response().Header.Add("Access-Control-Allow-Origin", "*")
 
 	sess, err := redis_session.Store.Get(c)
 
@@ -153,6 +154,7 @@ func GetHistorial(c *fiber.Ctx) error {
 		results = append(results, r)
 	}
 	c.Response().SetStatusCode(200)
+	c.Response().Header.Add("Access-Control-Allow-Origin", "*")
 
 	return c.JSON(results)
 
