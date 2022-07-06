@@ -14,8 +14,9 @@ func main() {
 	server := fiber.New()
 	redis_session.New()
 	server.Use(cors.New(cors.Config{
-		AllowOrigins: "http://localhost:3000",
-		AllowHeaders: "Origin, Content-Type, Accept, session_id",
+		AllowOrigins:  "http://localhost:3000",
+		AllowHeaders:  "Origin, Content-Type, Accept, session_id",
+		ExposeHeaders: "session_id",
 	}))
 
 	server.Get("weather/:city", weather.GetWeather)
