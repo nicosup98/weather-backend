@@ -84,7 +84,7 @@ func GetWeather(c *fiber.Ctx) error {
 	if err := sess.Save(); err != nil {
 		log.Panicln("an error ocurred saving the session: ", err)
 	}
-	c.Response().Header.Set("session_id", sess.ID())
+	bodyParsed["session_id"] = sess.ID()
 	return c.JSON(bodyParsed)
 
 }
