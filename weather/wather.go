@@ -18,6 +18,8 @@ import (
 func GetWeather(c *fiber.Ctx) error {
 	forecast := c.Query("daysForecast", "")
 	city := c.Params("city")
+	sessionId := c.Params("session_id")
+	c.Request().Header.Add("session_id", sessionId)
 
 	var rawUrl string
 	var typeSearch string
