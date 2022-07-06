@@ -18,8 +18,9 @@ func New() {
 		Reset: false,
 	})
 	Store = session.New(session.Config{
-		Storage:   storage,
-		KeyLookup: "header:session_id",
+		Storage:      storage,
+		KeyLookup:    "header:session_id",
+		CookieDomain: "http://localhost:300",
 	})
 
 	gob.Register(map[string]interface{}{})
