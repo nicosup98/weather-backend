@@ -18,11 +18,6 @@ import (
 func GetWeather(c *fiber.Ctx) error {
 	forecast := c.Query("daysForecast", "")
 	city := c.Params("city")
-	sessionId := c.Params("session_id")
-
-	if len(sessionId) > 0 {
-		c.Request().Header.Add("session_id", sessionId)
-	}
 
 	var rawUrl string
 	var typeSearch string
@@ -78,18 +73,11 @@ func GetWeather(c *fiber.Ctx) error {
 		"data": bodyParsed,
 	}
 
-	// historyDataRaw, err := json.Marshal(historyData)
-
-	// if err != nil {
-	// 	log.Panicln("an error ocurred parsing to json: ", err)
-	// }
-
 	sess.Set(strconv.FormatInt(timeUnix, 10), historyData)
 
 	if err := sess.Save(); err != nil {
 		log.Panicln("an error ocurred saving the session: ", err)
 	}
-	bodyParsed["session_id"] = sess.ID()
 	return c.JSON(bodyParsed)
 
 }

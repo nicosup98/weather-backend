@@ -18,8 +18,10 @@ func New() {
 		Reset: false,
 	})
 	Store = session.New(session.Config{
-		Storage: storage,
+		Storage:   storage,
+		KeyLookup: "header:session_id",
 	})
+
 	gob.Register(map[string]interface{}{})
 	gob.Register([]interface{}{})
 }
