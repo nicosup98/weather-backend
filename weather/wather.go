@@ -94,7 +94,7 @@ func GetAutocompletation(c *fiber.Ctx) error {
 	body := resp.Body()
 	code := resp.StatusCode()
 
-	var bodyParsed map[string]interface{}
+	var bodyParsed []map[string]interface{}
 
 	err = json.Unmarshal(body, &bodyParsed)
 
