@@ -94,12 +94,16 @@ func GetAutocompletation(c *fiber.Ctx) error {
 	body := resp.Body()
 	code := resp.StatusCode()
 
-	dataParsed := make(map[string]interface{})
+	var bodyParsed map[string]interface{}
 
-	json.Unmarshal(body, &dataParsed)
+	err = json.Unmarshal(body, &bodyParsed)
+
+	if err != nil {
+		log.Panicln("an error ocurred unmarshall json: ", err)
+	}
 
 	c.Response().SetStatusCode(code)
-	return c.JSON(dataParsed)
+	return c.JSON(bodyParsed)
 }
 
 func GetHistorial(c *fiber.Ctx) error {
