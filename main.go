@@ -13,9 +13,8 @@ import (
 func main() {
 	server := fiber.New()
 	redis_session.New()
-	trustedUrls := local_utils.GetEnviromentVars("TRUSTED_URLS")
 	server.Use(cors.New(cors.Config{
-		AllowOrigins:  trustedUrls,
+		AllowOrigins:  "https://weather-app-eight-steel.vercel.app/",
 		AllowHeaders:  "Origin, Content-Type, Accept, session_id",
 		ExposeHeaders: "session_id",
 	}))
