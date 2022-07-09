@@ -13,8 +13,9 @@ import (
 func main() {
 	server := fiber.New()
 	redis_session.New()
+	trustedUrls := local_utils.GetEnviromentVars("TRUSTED_URLS")
 	server.Use(cors.New(cors.Config{
-		AllowOrigins:  local_utils.GetEnviromentVars("TRUSTED_URLS"),
+		AllowOrigins:  trustedUrls,
 		AllowHeaders:  "Origin, Content-Type, Accept, session_id",
 		ExposeHeaders: "session_id",
 	}))
