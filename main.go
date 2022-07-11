@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	redis_session "weather-app/api/session"
 	local_utils "weather-app/api/utils"
 	"weather-app/api/weather"
@@ -24,6 +25,8 @@ func main() {
 	server.Get("autocomplete/:city", weather.GetAutocompletation)
 
 	server.Get("history", weather.GetHistorial)
+	server.Get("getToken", redis_session.GetToken)
+	server.Delete("deleteToken", redis_session.DeleteSessionToken)
 
-	server.Listen(fmt.Sprintf(":%s", local_utils.GetEnviromentVars("PORT")))
+	log.Fatal(server.Listen(fmt.Sprintf(":%s", local_utils.GetEnviromentVars("PORT"))))
 }
