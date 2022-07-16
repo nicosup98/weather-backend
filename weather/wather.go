@@ -154,7 +154,6 @@ func GetHistorial(c *fiber.Ctx) error {
 		results = append(results, r)
 	}
 	c.Response().SetStatusCode(200)
-	c.Response().Header.Add("Access-Control-Allow-Origin", "*")
 
 	return c.JSON(results)
 

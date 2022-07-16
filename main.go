@@ -16,7 +16,6 @@ func main() {
 	redis_session.New()
 	server.Use(cors.New(cors.Config{
 		// AllowOrigins:  "https://weather-app-eight-steel.vercel.app/",
-		AllowOrigins:  "*",
 		AllowHeaders:  "Origin, Content-Type, Accept, session_id",
 		ExposeHeaders: "session_id",
 	}))
@@ -25,7 +24,7 @@ func main() {
 
 	server.Get("autocomplete/:city", weather.GetAutocompletation)
 
-	server.Get("getHistorial", weather.GetHistorial)
+	server.Get("history", weather.GetHistorial)
 	server.Get("getToken", redis_session.GetToken)
 	server.Delete("deleteToken", redis_session.DeleteSessionToken)
 
