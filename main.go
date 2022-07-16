@@ -25,7 +25,7 @@ func main() {
 
 	server.Get("autocomplete/:city", weather.GetAutocompletation)
 
-	server.Get("history", weather.GetHistorial)
+	server.Get("weather/historial", weather.GetHistorial)
 	server.Get("getToken", redis_session.GetToken)
 	server.Delete("deleteToken", redis_session.DeleteSessionToken)
 
