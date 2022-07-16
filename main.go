@@ -16,7 +16,7 @@ func main() {
 	redis_session.New()
 	server.Use(cors.New(cors.Config{
 		// AllowOrigins:  "https://weather-app-eight-steel.vercel.app/",
-		AllowOrigins:  cors.ConfigDefault.AllowOrigins,
+		AllowOrigins:  "*",
 		AllowHeaders:  "Origin, Content-Type, Accept, session_id",
 		ExposeHeaders: "session_id",
 	}))
