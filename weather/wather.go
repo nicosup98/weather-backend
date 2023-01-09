@@ -14,7 +14,7 @@ import (
 	redis_session "weather-app/api/session"
 	local_utils "weather-app/api/utils"
 )
-
+//dummy comment
 func GetWeather(c *fiber.Ctx) error {
 	forecast := c.Query("daysForecast", "")
 	city := c.Params("city")
